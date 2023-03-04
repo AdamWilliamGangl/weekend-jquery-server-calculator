@@ -6,18 +6,8 @@ app.use(express.static('server/public'));
 app.use(bodyParser.urlencoded({ extended: true }));
 
 let resultsHistory = {
-    history: [{
-        fieldOne: '1',
-        fieldTwo: '2',
-        operator: '+',
-        result: '3'
-    },
-    {
-        fieldOne: '4',
-        fieldTwo: '5',
-        operator: '+',
-        result: '9'
-    }],
+    history: [
+   ],
 };
 
 app.get('/getCalculator', (req, res) => {
@@ -32,11 +22,39 @@ app.post('/pushCalculator', function (req, res) {
     let pushedCalculation = req.body;
     console.log('this is pushedCalculator, it should be the same as req.body:', pushedCalculation)
     ///////Some calculations and functions!
-
-    resultsHistory.history.push();//whatever the final object result is goes in here.
+    doCalculations(pushedCalculation);
+    resultsHistory.history.unshift(pushedCalculation);
+    console.log('this is the current results history:', resultsHistory)
     res.sendStatus(200);
 })
 
 app.listen(port, () => {
     console.log('In app.listen - Listening on port:', port)
 })
+
+function doCalculations(object) {
+    let firstNumber = Number(object.fieldOne);
+    console.log('this is first number:', firstNumber)
+
+    let secondNumber = Number(object.fieldTwo)
+    console.log('this is second number:', secondNumber)
+
+    let sum;
+    switch (object.operator) {
+        case '+':
+            sum = firstNumber + secondNumber;
+            break;
+        case '-':
+            sum = firstNumber - secondNumber;
+            break;
+        case '*':
+            sum = firstNumber * secondNumber;
+            break;
+        case '/':
+            sum = firstNumber / secondNumber;
+            break;
+            return;
+    }
+    console.log('this is the sum:', sum)
+    object.result = sum;
+}

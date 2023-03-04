@@ -8,12 +8,15 @@ function onReady() {
     $('#division').on('click', division);
     $('#equal').on('click', pushNumber);
     $('#clear').on('click', resetInputFields);
-    getNumber();
+    // getNumber();
 
 }
 
 let calculation = {
+    fieldOne: $('#fieldOne').val(),
+    fieldTwo: $('#fieldTwo').val(),
 }
+
 //function to get a number from server via GET request.
 function getNumber() {
     $.ajax({
@@ -29,7 +32,7 @@ function getNumber() {
 
 //function to send number to server via POST request.
 function pushNumber() {
-
+    insertNumbers();
     $.ajax({
         method: 'POST',
         url: '/pushCalculator', //change this pathway
@@ -48,7 +51,7 @@ function render(calculation) {
     $('#solutionOutput').empty();
     $('#history').empty();
     console.log('In Rendor', calculation.history);
-    for (let i=0; i< calculation.history.length; i++) {
+    for (let i = 0; i < calculation.history.length; i++) {
         console.log('Howdy this is item', calculation.history[i])
         $('#history').append(
             `<li>${calculation.history[i].fieldOne}
@@ -63,39 +66,24 @@ function render(calculation) {
 }
 
 function resetInputFields() {
-    let fieldOneInput = $('#fieldOne').val('');
-    let fieldTwoInput = $('#fieldTwo').val('');
+    fieldOneInput = $('#fieldOne').val('');
+    fieldTwoInput = $('#fieldTwo').val('');
 }
 
 function addition() {
-    let calculation = {
-        fieldOne: $('#fieldOne').val(),
-        fieldTwo: $('#fieldTwo').val(),
-        operator: '+'
-    };
-    pushNumber(calculation)
+        calculation.operator = '+'
 }
 function subtraction() {
-    let calculation = {
-        fieldOne: $('#fieldOne').val(),
-        fieldTwo: $('#fieldTwo').val(),
-        operator: '-'
-    };
-    pushNumber(calculation)
+        calculation.operator = '-'
 }
 function multiplication() {
-    let calculation = {
-        fieldOne: $('#fieldOne').val(),
-        fieldTwo: $('#fieldTwo').val(),
-        operator: '*'
-    };
-    pushNumber(calculation)
+        calculation.operator = '*'
 }
 function division() {
-    let calculation = {
-        fieldOne: $('#fieldOne').val(),
-        fieldTwo: $('#fieldTwo').val(),
-        operator: '/'
-    };
-    pushNumber(calculation)
+        calculation.operator = '/'
+}
+
+function insertNumbers() {
+    calculation.fieldOne = $('#fieldOne').val(),
+    calculation.fieldTwo = $('#fieldTwo').val()
 }
