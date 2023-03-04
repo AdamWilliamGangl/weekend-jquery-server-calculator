@@ -2,26 +2,24 @@ $(document).ready(onReady);
 
 function onReady() {
     console.log('On Ready- Page is working!');
-    $('#addition').on('click', addition(calculation));
-    $('#subtraction').on('click', subtraction(calculation));
-    $('#multiplication').on('click', multiplication(calculation));
-    $('#division').on('click', division(calculation));
-    $('#equal').on('click', getNumber());
-    $('#clear').on('click', resetInputFields());
+    $('#addition').on('click', addition);
+    $('#subtraction').on('click', subtraction);
+    $('#multiplication').on('click', multiplication);
+    $('#division').on('click', division);
+    $('#equal').on('click', pushNumber);
+    $('#clear').on('click', resetInputFields);
     getNumber();
 
 }
 
 let calculation = {
-    fieldOne: $('#fieldOne').val(),
-    fieldTwo: $('#fieldTwo').val()
 }
 //function to get a number from server via GET request.
 function getNumber() {
     $.ajax({
         method: 'GET',
-        url: '/getCalculator' //change this pathway
-    }).then(function (response) {
+        url: '/getCalculator'
+    }).then((response) => {
         console.log('In getNumber - success!', response);
         render(response);
     }).catch(function (response) {
@@ -31,7 +29,7 @@ function getNumber() {
 
 //function to send number to server via POST request.
 function pushNumber() {
-    
+
     $.ajax({
         method: 'POST',
         url: '/pushCalculator', //change this pathway
@@ -46,17 +44,17 @@ function pushNumber() {
 }
 
 //function to render items to the DOM.
-function rendor(calculation) {
+function render(calculation) {
     $('#solutionOutput').empty()
     console.log('In Rendor');
-    for(let item of calculation){
-        $('#solutionOutput').append(
-            <span>${item.result}</span>
-        );
+    for (let item in calculation.history) {
         $('#history').append(
-            <li>${item.history}</li>
+            `<li>${item.fieldOne}${item.operator}${item.fieldtwo}=${item.result}</li>`
         )
     }
+    $('#solutionOutput').append(
+        `<span>${calculation.history[0].result} </span>`
+    );
 }
 
 function resetInputFields() {
@@ -64,15 +62,35 @@ function resetInputFields() {
     let fieldTwoInput = $('#fieldTwo').val('');
 }
 
-function addition(object){
-    object.operator = '+'
+function addition() {
+    let calculation = {
+        fieldOne: $('#fieldOne').val(),
+        fieldTwo: $('#fieldTwo').val(),
+        operator: '+'
+    };
+    pushNumber(calculation)
 }
-function subtraction(object){
-    object.operator = '-'
+function subtraction() {
+    let calculation = {
+        fieldOne: $('#fieldOne').val(),
+        fieldTwo: $('#fieldTwo').val(),
+        operator: '-'
+    };
+    pushNumber(calculation)
 }
-function multiplication(object){
-    object.operator = '*'
+function multiplication() {
+    let calculation = {
+        fieldOne: $('#fieldOne').val(),
+        fieldTwo: $('#fieldTwo').val(),
+        operator: '*'
+    };
+    pushNumber(calculation)
 }
-function division(object){
-    object.operator = '/'
+function division() {
+    let calculation = {
+        fieldOne: $('#fieldOne').val(),
+        fieldTwo: $('#fieldTwo').val(),
+        operator: '/'
+    };
+    pushNumber(calculation)
 }
