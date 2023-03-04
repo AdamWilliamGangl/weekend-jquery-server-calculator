@@ -7,10 +7,16 @@ app.use(bodyParser.urlencoded({ extended: true }));
 
 let resultsHistory = {
     history: [{
-        fieldOne: '',
-        fieldTwo: '',
-        operator: '',
-        result: ''
+        fieldOne: '1',
+        fieldTwo: '2',
+        operator: '+',
+        result: '3'
+    },
+    {
+        fieldOne: '4',
+        fieldTwo: '5',
+        operator: '+',
+        result: '9'
     }],
 };
 

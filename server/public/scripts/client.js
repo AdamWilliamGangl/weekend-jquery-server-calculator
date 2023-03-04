@@ -45,11 +45,16 @@ function pushNumber() {
 
 //function to render items to the DOM.
 function render(calculation) {
-    $('#solutionOutput').empty()
-    console.log('In Rendor');
-    for (let item in calculation.history) {
+    $('#solutionOutput').empty();
+    $('#history').empty();
+    console.log('In Rendor', calculation.history);
+    for (let i=0; i< calculation.history.length; i++) {
+        console.log('Howdy this is item', calculation.history[i])
         $('#history').append(
-            `<li>${item.fieldOne}${item.operator}${item.fieldtwo}=${item.result}</li>`
+            `<li>${calculation.history[i].fieldOne}
+            ${calculation.history[i].operator}
+            ${calculation.history[i].fieldTwo}=
+            ${calculation.history[i].result}</li>`
         )
     }
     $('#solutionOutput').append(
