@@ -1,9 +1,12 @@
-# Project Name
+# Weekend jQuery Server Calculator
 
-[Project Instructions](./INSTRUCTIONS.md), this line may be removed once you have updated the README.md
 
 ## Description
 
-Your project description goes here. What problem did you solve? How did you solve it?
-
-Additional README details can be found [here](https://github.com/PrimeAcademy/readme-template/blob/master/README.md).
+I completed a project to create a calculator which worked in the following manner.
+<li> Take inputs in from the client side. </li>
+<li> Send those inputs to the server. </li>
+<li> Run a function to do the arithematic within the server. </li>
+<li> Send the result back to the client side. </li>
+<li> Append the result, and a history of calculations, to the DOM. </li>
+  
